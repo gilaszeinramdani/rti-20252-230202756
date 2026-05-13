@@ -61,25 +61,25 @@ Dalam DSR, artefak **bukan tujuan akhir** — ia adalah instrumen untuk menghasi
 ## Template A.1 — Research Mindset Self-Assessment
 
 ```
-Nama Peneliti    : ____________________
-Tanggal          : ____________________
+Nama Peneliti    : RANCANG BANGUN SISTEM PENGERING PADI OTOMATIS BERBASIS ESP 32 MENGGUNAKAN SENSOR SUHU DAN KELEMBAPAN
+Tanggal          : 13 Mei 2026
 
 1. Ketika membaca klaim "metode X 95% akurat":
-   - Pertanyaan pertama saya: ____________________
-   - Data yang dibutuhkan untuk verifikasi: ____________________
+   - Pertanyaan pertama saya: Apakah pengujian dilakukan pada kondisi yang berbeda dan data yang cukup?
+   - Data yang dibutuhkan untuk verifikasi: Dataset pengujian, jumlah sampel, kondisi eksperimen, dan hasil perbandingan metode lain.
 
 2. Posisi paradigma:
-   - Pendekatan: [ ] Positivis  [ ] Interpretivis  [ ] Design Science  [ ] Mixed
-   - Alasan: ____________________
+   - Pendekatan: [ ] Positivis  [ ] Interpretivis  [✓] Design Science  [ ] Mixed
+   - Alasan: Penelitian berfokus pada pembuatan sistem pengering padi otomatis berbasis ESP32 untuk menguji efektivitas alat dalam menjaga suhu dan kelembapan.
 
 3. Identifikasi distorsi:
-   - Asumsi tersembunyi: ____________________
-   - Sumber bias potensial: ____________________
-   - Langkah mitigasi: ____________________
+   - Asumsi tersembunyi: Sensor DHT11 dianggap selalu akurat dalam membaca suhu dan kelembapan.
+   - Sumber bias potensial:  Pengujian hanya dilakukan pada satu kondisi lingkungan.
+   - Langkah mitigasi: Melakukan pengujian pada beberapa kondisi cuaca dan lokasi berbeda.
 
 4. Komitmen etika:
-   - Data yang tidak akan dimanipulasi: ____________________
-   - Batasan yang diakui sejak awal: ____________________
+   - Data yang tidak akan dimanipulasi: Data suhu, kelembapan, dan hasil pengeringan.
+   - Batasan yang diakui sejak awal: Sistem masih berupa prototype dan belum diuji dalam skala industri.
 ```
 
 ---
@@ -93,23 +93,23 @@ Pilih satu paper riset di bidang TI yang mengklaim "metode X meningkatkan perfor
 > **Contoh domain TI:** "Deteksi anomali lalu-lintas jaringan menggunakan CNN — akurasi meningkat 94% vs baseline SVM 87%." Distorsi potensial: apakah dataset normal/anomali seimbang? Apakah hanya diuji pada satu vendor traffic?
 
 **Paper yang dipilih:**
-> Judul: _______________________________________________
-> Penulis (Tahun): ______________________________________
-> Sumber/Link DOI: _____________________________________
+> Judul: Rancang Bangun Sistem Pengering Padi Otomatis Berbasis ESP32 Menggunakan Sensor Suhu dan Kelembapan
+> Penulis (Tahun): Kelompok 1 Universitas Putra Bangsa (2026)
+> Sumber/Link DOI: Dokumen penelitian internal/prototype
 
 | Tahap | Apa yang Dilakukan | Potensi Distorsi |
 |-------|-------------------|-----------------|
-| Reality → Data | *Contoh: Kumpulkan log server 30 hari* | *Contoh: Hanya ambil jam sibuk* |
-| Data → Processing | | |
-| Processing → Analysis | | |
-| Analysis → Inference | | |
-| Inference → Knowledge | | |
+| Reality → Data | *Mengumpulkan data suhu dan kelembapan menggunakan sensor DHT11* | *CSensor kurang akurat pada kondisi tertentu* |
+| Data → Processing | *Data diproses oleh ESP32* | *Kesalahan pembacaan akibat noise sensor* |
+| Processing → Analysis | *Membandingkan suhu dengan batas minimum* | *Nilai batas mungkin tidak sesuai semua kondisi* |
+| Analysis → Inference | *Menentukan kipas aktif atau tidak* | *Kesimpulan terlalu bergantung pada satu sensor* |
+| Inference → Knowledge | *Menyimpulkan sistem efektif untuk pengeringan padi* | *Belum diuji pada skala besar* |
 
-**Distorsi paling besar di tahap:** ________________________
+**Distorsi paling besar di tahap:** Reality → Data
 
 **Dua distorsi spesifik yang teridentifikasi:**
-1. ___________________________________________________
-2. ___________________________________________________
+1. Akurasi sensor DHT11 dapat berubah karena lingkungan.
+2. Pengujian hanya dilakukan pada prototype sederhana.
 
 ---
 
@@ -119,12 +119,12 @@ Skenario: Seorang peneliti menemukan bahwa jika 3 data point outlier dihapus, ha
 
 | Perspektif | Analisis |
 |------------|---------|
-| Kejujuran ilmiah | *Contoh: Laporkan kedua versi (dengan dan tanpa outlier)* |
-| Transparansi | |
-| Peer review | |
+| Kejujuran ilmiah | *Peneliti harus melaporkan hasil dengan dan tanpa outlier* |
+| Transparansi | *Alasan penghapusan data harus dijelaskan secara terbuka* |
+| Peer review | *Reviewer dapat mengevaluasi apakah outlier memang kesalahan data atau bagian dari fenomena* |
 
 **Keputusan akhir dan justifikasi:**
-> ___________________________________________________
+> Data outlier tidak boleh langsung dihapus hanya untuk mendapatkan hasil signifikan. Peneliti harus menjelaskan penyebab outlier dan melaporkan kedua hasil agar penelitian tetap objektif dan transparan.
 
 ---
 
@@ -136,12 +136,12 @@ Skenario: Seorang peneliti menemukan bahwa jika 3 data point outlier dihapus, ha
 
 | Kriteria | Positivis | Interpretivis | Design Science |
 |----------|-----------|---------------|----------------|
-| Kesesuaian dengan topik (1–5) | *Contoh: 4 — topik kuantitatif, cocok uji hipotesis* | *Contoh: 2 — topik tidak studi makna/konteks* | *Contoh: 5 — membangun artefak untuk uji klaim* |
-| Jenis data yang dikumpulkan | *Metrik numerik, log eksperimen* | *Wawancara, observasi kualitatif* | *Hasil uji artefak, komparasi kinerja* |
-| Limitasi paradigma | | | |
+| Kesesuaian dengan topik (1–5) | *4 — menggunakan pengujian suhu dan kelembapan* | *1 — tidak fokus pada makna sosial* | *5 — membangun sistem otomatis sebagai artefak* |
+| Jenis data yang dikumpulkan | *Data suhu dan kelembapan* | *Observasi pengguna* | *Hasil pengujian alat dan performa sistem* |
+| Limitasi paradigma | *Sulit menangkap faktor lingkungan* | *Data subjektif* | *Fokus lebih pada artefak dibanding teori* |
 
-**Paradigma yang dipilih:** _____________________________
-**Alasan:** ____________________________________________
+**Paradigma yang dipilih:** Design Science Research
+**Alasan:** Penelitian berfokus pada perancangan dan pengujian sistem otomatis berbasis ESP32 untuk menyelesaikan masalah pengeringan padi.
 
 ---
 
@@ -150,5 +150,4 @@ Skenario: Seorang peneliti menemukan bahwa jika 3 data point outlier dihapus, ha
 > Sebelum membaca materi ini, apakah pernah mempertanyakan klaim "95% akurat"? Setelah memahami rantai distorsi, pertanyaan apa yang sekarang akan diajukan saat membaca paper?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Sebelum membaca materi ini, saya hanya melihat angka akurasi sebagai bukti keberhasilan penelitian. Setelah memahami rantai distorsi, saya menyadari bahwa data, metode pengujian, dan kondisi eksperimen sangat mempengaruhi hasil penelitian. Sekarang saya akan mempertanyakan bagaimana data dikumpulkan, apakah pengujian adil, dan apakah hasil dapat diterapkan pada kondisi lain.
