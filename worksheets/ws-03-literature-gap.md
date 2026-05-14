@@ -77,39 +77,47 @@ Membandingkan deep learning 2024 dengan decision tree sederhana tanpa justifikas
 ```
 LITERATURE MAPPING
 
-Topik      : ____________________
-Database   : ____________________
-Query      : ____________________
-Tahun      : ____________________
-Hasil awal : ____ paper → Screening → ____ paper final
+Topik      : Sistem Pengering Padi Otomatis Berbasis ESP32 dan IoT
+Database   : Google Scholar, ResearchGate
+Query      : ("pengering gabah" OR "pengering padi") AND ("ESP32" OR "IoT") AND ("sensor suhu" OR "kelembapan")
+Tahun      : 2025–2026
+Hasil awal : 18 paper → Screening → 5 paper final
 
 Literature Matrix (concept-centric):
 
 | Study | Tahun | Method | Data | Result | Limitation |
-|-------|-------|--------|------|--------|------------|
-|       |       |        |      |        |            |
+|Adham et al.|2026|ESP32 + IoT + DHT22|Suhu & kelembapan|Monitoring real-time dan kontrol kipas otomatis|Belum ada optimasi distribusi panas|
+|Amin & Arrahimi|2025|Rotary Dryer berbasis IoT|DHT22|Kadar air turun hingga 14% dalam ±22 menit|Sistem mekanik kompleks|
 
 Pola yang ditemukan:
-  Metode dominan     : ____________________
-  Dataset umum       : ____________________
-  Limitasi berulang  : ____________________
+  Metode dominan     : ESP32 sebagai mikrokontroler utama
+                       Sensor DHT11/DHT22
+                       Sistem kontrol otomatis berbasis relay
+                       Monitoring IoT real-time
+  Dataset umum       : Suhu udara
+                       Kelembapan udara
+                       Kadar air gabah
+  Limitasi berulang  : Monitoring tanpa kontrol otomatis
+                       Distribusi panas belum optimal
+                       Ketergantungan pada sensor sederhana
+                       Belum banyak implementasi skala nyata
 
 GAP IDENTIFICATION
 
-Gap 1: [Jenis: performance / method / data / context]
-  Deskripsi    : ____________________
-  Bukti        : ____________________
-  Signifikansi : ____________________
+Gap 1: [Jenis: method]
+  Deskripsi    : Sebagian penelitian hanya fokus pada monitoring suhu dan kelembapan tanpa integrasi kontrol otomatis heater dan kipas secara adaptif.
+  Bukti        : Penelitian Nuhdi (2025) hanya melakukan monitoring kadar air tanpa pengendalian otomatis sistem pengering.
+  Signifikansi : Tanpa kontrol otomatis, proses pengeringan tetap membutuhkan intervensi manual sehingga efisiensi sistem belum optimal.
 
-Gap 2: [Jenis: ____]
-  Deskripsi    : ____________________
-  Bukti        : ____________________
-  Signifikansi : ____________________
+Gap 2: [Jenis: Context + Performance]
+  Deskripsi    : Sebagian besar penelitian masih berbentuk prototype laboratorium dan belum diuji pada kondisi pengeringan nyata dengan perubahan suhu lingkungan yang dinamis.
+  Bukti        : Penelitian sebelumnya lebih fokus pada simulasi atau prototype kecil dengan parameter terbatas.
+  Signifikansi : Sistem yang stabil pada lingkungan nyata lebih dibutuhkan petani dibanding sistem yang hanya berhasil pada kondisi ideal laboratorium.
 
 Baseline Selection:
 | Baseline | Relevansi | Representatif | Source |
-|----------|-----------|---------------|--------|
-|          |           |               |        |
+|ESP32 + DHT22 Monitoring System|Task sama: monitoring pengering gabah|Dipakai pada banyak penelitian IoT|Adham et al., 2026|
+|Rotary Dryer IoT|Sama-sama pengering otomatis|Metode umum pada pengering modern|Amin & Arrahimi, 2025|
 ```
 
 ---
@@ -123,20 +131,26 @@ Gunakan topik riset dari WS-02. Cari minimal 5 paper relevan menggunakan databas
 > - Tulis query Boolean yang digunakan: contoh `("object detection" OR "image classification") AND ("edge computing") NOT ("medical")`. Dokumentasikan query secara eksplisit.
 > - Akses gratis: buka Google Scholar → cari judul paper → klik [PDF] jika tersedia, atau akses lewat campus VPN
 
-**Topik riset:** ________________________________________
-**Query pencarian:** ____________________________________
-**Database:** ___________________________________________
+**Topik riset:** Sistem Pengering Padi Otomatis Berbasis ESP32 Menggunakan Sensor Suhu dan Kelembapan
+**Query pencarian:** ("pengering gabah" OR "pengering padi") AND ("ESP32" OR "IoT") AND ("sensor suhu" OR "kelembapan")
+**Database:** Google Scholar, ResearchGate
 
 | # | Study | Tahun | Method | Dataset | Result | Limitasi |
 |---|-------|-------|--------|---------|--------|----------|
-| 1 | *Contoh: Rahman et al.* | *2023* | *CNN* | *ImageNet subset* | *Acc 91%* | *Hanya 3 kelas* |
-| 2 | | | | | | |
-| 3 | | | | | | |
-| 4 | | | | | | |
-| 5 | | | | | | |
+| 1 | *Adham et al.* | *2026* | *ESP32 + DHT22 + IoT* | *Data suhu & kelembapan* | *Monitoring real-time dan kontrol kipas otomatis* | *Distribusi panas belum optimal* |
+| 2 | *Amin & Arrahimi* |*2025* | *Rotary Dryer berbasis IoT* | *Data kadar air gabah* | *Kadar air turun hingga 14% dalam ±22 menit* | *Sistem mekanik kompleks* |
+| 3 | *Nuhdi* | *2025* | *Monitoring IoT berbasis moisture sensor* | *Data kadar air* | *Monitoring kadar air lebih akurat* | *Tidak ada kontrol otomatis* |
+| 4 | *Oktavois & Gunawan* | *2026* | *ESP32 + kontrol ON-OFF* | *Suhu dan kelembapan* | *Kadar air turun dari 55% ke 12%* | *Belum mendukung monitoring internet* |
+| 5 | *Penelitian yang diusulkan* | *2026* | *ESP32 + DHT11 + relay otomatis* | *Suhu dan kelembapan ruang pengering* | *Kontrol heater dan kipas otomatis* | *Masih tahap prototype* |
 
-**Pola yang terlihat — Metode dominan:** ___________________
-**Limitasi yang berulang:** ______________________________
+**Pola yang terlihat — Metode dominan:** ESP32 sebagai mikrokontroler utama
+                                         Sensor DHT11/DHT22
+                                         Sistem kontrol otomatis berbasis relay
+                                         Monitoring berbasis IoT
+**Limitasi yang berulang:** Sistem masih berupa prototype
+                            Monitoring tanpa kontrol otomatis penuh
+                            Distribusi panas belum stabil
+                            Pengujian masih terbatas pada skala kecil
 
 ---
 
@@ -146,14 +160,14 @@ Berdasarkan tabel di Latihan 1, identifikasi gap.
 
 | Jenis Gap | Ditemukan? | Gap Statement |
 |-----------|-----------|---------------|
-| Performance Gap | [ ] Ya / [ ] Tidak | *Contoh: Akurasi turun di bawah 80% untuk kelas minoritas* |
-| Method Gap | [ ] Ya / [ ] Tidak | |
-| Data Gap | [ ] Ya / [ ] Tidak | |
-| Context Gap | [ ] Ya / [ ] Tidak | |
+| Performance Gap | [✓] Ya / [ ] Tidak | *Stabilitas suhu dan distribusi udara panas masih belum optimal* |
+| Method Gap | [✓] Ya / [ ] Tidak | *Banyak penelitian hanya fokus pada monitoring tanpa kontrol otomatis adaptif* |
+| Data Gap | [✓] Ya / [ ] Tidak | *Dataset pengujian masih terbatas pada prototype laboratorium* |
+| Context Gap | [✓] Ya / [ ] Tidak | *Belum banyak pengujian pada kondisi lingkungan nyata dan skala petani* |
 
-**Gap utama yang dipilih:** _____________________________
+**Gap utama yang dipilih:** Method + Context
 **Mengapa gap ini penting (bukan sekadar "belum ada yang meneliti")?**
-> ___________________________________________________
+> Karena sebagian penelitian hanya mampu melakukan monitoring tanpa pengendalian otomatis secara real-time. Selain itu, pengujian sistem masih terbatas pada kondisi laboratorium sehingga belum diketahui kestabilannya pada lingkungan nyata. Penelitian ini penting untuk meningkatkan efisiensi pengeringan dan mengurangi ketergantungan terhadap cuaca.
 
 ---
 
@@ -163,11 +177,11 @@ Pilih 2 baseline dari literatur yang sudah dibaca.
 
 | # | Baseline | Mengapa Relevan | Mengapa Representatif | Apakah SOTA? | Sumber |
 |---|----------|----------------|----------------------|-------------|--------|
-| 1 | *Contoh: RF + TF-IDF* | *Task sama: klasifikasi teks* | *Dipakai 6 dari 10 paper* | *Bukan, tapi common practice* | *Lee et al., 2022* |
-| 2 | | | | | |
+| 1 | *ESP32 + DHT22 IoT Monitoring* | *Mengatasi masalah pengeringan gabah otomatis* | *Banyak digunakan pada penelitian IoT* | *Bukan, tetapi common practice* | *Adham et al., 2026* |
+| 2 | *Rotary Dryer berbasis IoT* | *Fokus pada efisiensi pengeringan gabah* | *Metode populer pada pengering modern* | *Hampir SOTA* | *Amin & Arrahimi, 2025* |
 
-**Apakah pemilihan baseline ini bisa dianggap straw man?** [ ] Ya / [ ] Tidak
-> Justifikasi: ________________________________________
+**Apakah pemilihan baseline ini bisa dianggap straw man?** [ ] Ya / [✓] Tidak
+> Justifikasi: Baseline dipilih dari penelitian yang relevan dengan topik yang sama, menggunakan metode modern yang umum dipakai, serta memiliki tujuan serupa yaitu otomatisasi pengeringan gabah berbasis IoT.
 
 ---
 
@@ -176,5 +190,5 @@ Pilih 2 baseline dari literatur yang sudah dibaca.
 > Apa perbedaan antara "belum ada yang meneliti ini" (klaim tanpa bukti) dengan research gap yang valid? Bagaimana cara membuktikan bahwa sebuah gap benar-benar ada?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Klaim “belum ada yang meneliti ini” hanya berupa asumsi tanpa bukti pencarian literatur yang jelas. Sedangkan research gap yang valid harus didukung dengan analisis beberapa penelitian sebelumnya untuk menemukan kelemahan, keterbatasan, atau masalah yang belum terselesaikan.
+> Gap dapat dibuktikan melalui pencarian sistematis menggunakan database akademik, kemudian membandingkan metode, hasil, dan limitasi dari beberapa paper sehingga ditemukan pola kekurangan yang konsisten.
