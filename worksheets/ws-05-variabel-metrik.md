@@ -66,19 +66,19 @@ Metrik harus ditentukan **sebelum** eksperimen. Memilih metrik setelah melihat d
 ```
 VARIABLE & METRIC DEFINITION
 
-Research Question: ____________________
+Research Question: Bagaimana pengaruh sistem pengering padi otomatis berbasis ESP32 menggunakan sensor suhu dan kelembapan terhadap efisiensi dan kestabilan proses pengeringan padi dibanding metode konvensional?
 
 | Variabel | Tipe | Konsep | Metrik | Skala | Satuan | Cara Mengukur | Justifikasi |
 |----------|------|--------|--------|-------|--------|---------------|-------------|
-|          | IV   |        |        |       |        |               |             |
-|          | DV   |        |        |       |        |               |             |
-|          | CV   |        |        |       |        |               |             |
+|Sistem pengering|IV|Metode pengeringan|Otomatis vs konvensional|Nominal|-|Membandingkan penggunaan sistem otomatis dan metode manual|Variabel utama yang memengaruhi proses pengeringan|
+|Waktu pengeringan gabah|DV|Efisiensi pengeringan|Lama waktu hingga gabah mencapai kadar air target|Ratio|Menit|Menghitung waktu mulai hingga gabah kering|Waktu pengeringan langsung merepresentasikan efisiensi sistem|
+|Suhu lingkungan pengering|CV|Kondisi lingkungan|Temperatur ruang pengering|Interval|°C|Dibaca menggunakan sensor DHT11 secara berkala|Suhu memengaruhi kecepatan pengeringan sehingga harus dikontrol|
 
 Alignment Check:
   RQ → Concept → Variable → Metric → Data → Result
-  [ ] Setiap langkah terdokumentasi
-  [ ] Tidak ada "lompatan logis"
-  [ ] Metrik mengukur apa yang dimaksud (construct validity)
+  [✓] Setiap langkah terdokumentasi
+  [✓] Tidak ada "lompatan logis"
+  [✓] Metrik mengukur apa yang dimaksud (construct validity)
 ```
 
 ---
@@ -87,15 +87,15 @@ Alignment Check:
 
 Gunakan RQ dari WS-04. Definisikan variabel dan metriknya.
 
-**RQ:** __________________________________________________
+**RQ:** Bagaimana pengaruh sistem pengering padi otomatis berbasis ESP32 menggunakan sensor suhu dan kelembapan terhadap efisiensi proses pengeringan gabah?
 
 | Variabel | Tipe | Konsep Abstrak | Metrik Konkret | Skala (NOIR) | Satuan |
 |----------|------|---------------|----------------|-------------|--------|
-| *Contoh: Jenis model* | *IV* | *Pendekatan klasifikasi* | *Categorical: CNN vs RF* | *Nominal* | *—* |
-| | DV | | | | |
-| | CV | | | | |
+| *Sistem pengering otomatis berbasis ESP32* | *IV* | *Metode pengeringan modern* | *Otomatis vs konvensional* | *Nominal* | *—* |
+| *Waktu pengeringan gabah* | DV | *Efisiensi pengeringan* | *Lama waktu hingga gabah kering* |*Ratio* | *Menit* |
+| *Suhu lingkungan pengering* | CV | *Kondisi lingkungan pengering* | *Temperatur ruang pengering* | *Interval* | *°C* |
 
-**Apakah ada lompatan logis dalam rantai?** [ ] Ya / [ ] Tidak
+**Apakah ada lompatan logis dalam rantai?** [ ] Ya / [✓] Tidak
 > Jika ya, di mana? ____________________________________
 
 ---
@@ -106,15 +106,15 @@ Evaluasi metrik DV yang dipilih di Latihan 1 menggunakan 3 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Representative | *Contoh: 4 — F1-Score mewakili keseimbangan precision-recall* | |
-| Sensitive | | |
-| Feasible | | |
+| Representative | *5* | *Waktu pengeringan secara langsung merepresentasikan efisiensi sistem* |
+| Sensitive | *4* | *Perubahan performa sistem dapat terlihat dari selisih waktu pengeringan* |
+| Feasible | *5* | *Mudah diukur menggunakan timer dan pencatatan sensor* |
 
-**Apakah perlu secondary metric?** [ ] Ya / [ ] Tidak
-> Jika ya, apa dan mengapa? _____________________________
+**Apakah perlu secondary metric?** [✓] Ya / [ ] Tidak
+> Jika ya, apa dan mengapa? Stabilitas suhu dan kelembapan, karena efisiensi tidak hanya diukur dari kecepatan tetapi juga kestabilan proses pengeringan.
 
 **Contoh kasus ceiling effect untuk metrik ini:**
-> ___________________________________________________
+> Jika seluruh metode mampu mengeringkan gabah dalam waktu hampir sama, maka metrik waktu menjadi kurang sensitif membedakan kualitas sistem.
 
 ---
 
@@ -124,10 +124,10 @@ Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualita
 
 | Dimensi | Pertanyaan | Jawaban | Strategi Mitigasi |
 |---------|-----------|---------|------------------|
-| Completeness | *Apakah semua data point terkumpul?* | | |
-| Consistency | *Apakah ada kontradiksi internal?* | | |
-| Validity | *Apakah benar-benar mengukur yang dimaksud?* | | |
-| Representativeness | *Apakah sampel mewakili populasi target?* | | |
+| Completeness | *Apakah semua data point terkumpul?* | *Ada kemungkinan data sensor hilang saat sistem error* | *Menyimpan data secara berkala dan backup data* |
+| Consistency | *Apakah ada kontradiksi internal?* | *Sensor dapat menghasilkan pembacaan tidak stabil* | *Kalibrasi sensor sebelum pengujian* |
+| Validity | *Apakah benar-benar mengukur yang dimaksud?* | *Sensor DHT11 cukup merepresentasikan suhu dan kelembapan* | *Membandingkan hasil sensor dengan alat ukur standar* |
+| Representativeness | *Apakah sampel mewakili populasi target?* | *Pengujian masih skala prototype* | *Menggunakan beberapa sampel gabah berbeda* |
 
 ---
 
@@ -136,5 +136,5 @@ Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualita
 > Mengapa memilih metrik setelah melihat data dianggap p-hacking? Apa bedanya dengan eksplorasi data yang sah?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Memilih metrik setelah melihat data dianggap p-hacking karena peneliti dapat memilih hasil yang paling menguntungkan sehingga penelitian menjadi bias dan tidak objektif.
+> Berbeda dengan eksplorasi data yang sah, eksplorasi dilakukan untuk menemukan pola tambahan dan tetap dilaporkan sebagai temuan eksploratif, bukan sebagai bukti utama hipotesis penelitian.
