@@ -62,7 +62,7 @@ Dalam DSR, artefak **bukan tujuan akhir** — ia adalah instrumen untuk menghasi
 
 ```
 Nama Peneliti    : RANCANG BANGUN SISTEM PENGERING PADI OTOMATIS BERBASIS ESP 32 MENGGUNAKAN SENSOR SUHU DAN KELEMBAPAN
-Tanggal          : 13 Mei 2026
+Tanggal          : 5 Mei 2026
 
 1. Ketika membaca klaim "metode X 95% akurat":
    - Pertanyaan pertama saya: Apakah pengujian dilakukan pada kondisi yang berbeda dan data yang cukup?
