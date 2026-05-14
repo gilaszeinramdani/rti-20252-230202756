@@ -67,33 +67,33 @@ Masalah riset yang layak harus memenuhi 5 kriteria:
 PROBLEM STATEMENT BUILDER
 
 Domain & Konteks
-  Domain   : ____________________
-  Konteks  : ____________________
+  Domain   : Internet of Things (IoT), Embedded System, Otomasi Pertanian
+  Konteks  : Sistem pengering padi otomatis berbasis ESP32 untuk membantu proses pengeringan gabah secara efisien dan stabil
 
 System Context
-  Input       : ____________________
-  Process     : ____________________
-  Output      : ____________________
-  Outcome     : ____________________
-  Constraints : ____________________
-  Stakeholders: ____________________
+  Input       : Data suhu dan kelembapan dari sensor DHT11
+  Process     : ESP32 memproses data sensor dan mengontrol relay, kipas, serta heater
+  Output      : Kipas dan heater aktif/nonaktif secara otomatis, data tampil pada LCD
+  Outcome     : Proses pengeringan lebih cepat, stabil, dan tidak bergantung cuaca
+  Constraints : Keterbatasan daya listrik, akurasi sensor, kapasitas alat, kestabilan jaringan IoT
+  Stakeholders: Petani, peneliti, pengelola pengering gabah
 
 Fenomena → Problem
-  Fenomena yang diamati             : ____________________
-  Gejala (symptom) yang terukur     : ____________________
-  Masalah yang didiagnosis          : ____________________
-  Masalah riset (researchable)      : ____________________
-  Variabel yang terukur             : ____________________
+  Fenomena yang diamati             : Pengeringan gabah masih dilakukan secara konvensional menggunakan sinar matahari
+  Gejala (symptom) yang terukur     : Waktu pengeringan lama, suhu tidak stabil, kadar air sulit dikontrol
+  Masalah yang didiagnosis          : Tidak adanya sistem otomatis untuk monitoring dan pengendalian suhu serta kelembapan
+  Masalah riset (researchable)      : Belum diketahui efektivitas sistem pengering gabah otomatis berbasis ESP32 dalam menjaga kestabilan suhu dan mempercepat proses pengeringan
+  Variabel yang terukur             : Suhu, kelembapan, waktu pengeringan, kestabilan sistem, efisiensi pengeringan
 
 Problem Quality Check
-  [ ] Clarity — Apakah satu orang membaca akan paham?
-  [ ] Measurability — Apakah ada metrik kuantitatif?
-  [ ] Relevance — Apakah penting untuk domain?
-  [ ] Testability — Apakah bisa gagal?
-  [ ] Impact — Apakah ada kontribusi jika terjawab?
+  [✓] Clarity — Masalah dijelaskan secara spesifik
+  [✓] Measurability — Memiliki variabel kuantitatif seperti suhu dan waktu
+  [✓] Relevance — Penting pada bidang pertanian dan IoT
+  [✓] Testability — Dapat diuji melalui eksperimen prototype
+  [✓] Impact — Berpotensi meningkatkan efisiensi pengeringan gabah
 
 Problem Statement (1 paragraf):
-  ____________________
+  Proses pengeringan gabah secara konvensional masih bergantung pada kondisi cuaca sehingga menyebabkan waktu pengeringan menjadi lama dan kualitas gabah sulit dikontrol. Selain itu, tidak adanya sistem monitoring suhu dan kelembapan secara otomatis mengakibatkan proses pengeringan kurang stabil dan efisien. Penelitian ini berfokus pada perancangan dan pengujian sistem pengering padi otomatis berbasis Espressif Systems ESP32 menggunakan sensor DHT11 untuk mengetahui efektivitas sistem dalam mengontrol suhu dan kelembapan secara real-time guna meningkatkan efisiensi dan kestabilan proses pengeringan gabah.
 ```
 
 ---
@@ -106,14 +106,13 @@ Pilih satu topik di bidang TI yang diminati. Transformasikan melalui 5 tahap Pro
 
 | Tahap | Hasil |
 |-------|-------|
-| Reality | *Contoh: Aplikasi e-commerce sering ditinggalkan saat checkout* |
-| Observed Issue (Symptom) | *Contoh: Bounce rate checkout 68%* |
-| Diagnosed Problem (Root Cause) | |
-| Researchable Problem | |
-| Measurable Variable | |
+| Reality | *Pengeringan gabah masih menggunakan sinar matahar* |
+| Observed Issue (Symptom) | *Pengeringan memerlukan waktu lama dan kadar air tidak stabil* |
+| Diagnosed Problem (Root Cause) | *Tidak ada sistem otomatis untuk mengontrol suhu dan kelembapan* |
+| Researchable Problem | *Bagaimana efektivitas ESP32 dan sensor DHT11 dalam sistem pengering gabah otomatis* |
+| Measurable Variable | *Suhu, kelembapan, waktu pengeringan, efisiensi alat* |
 
-**Apakah terjebak solution-first thinking?** [ ] Ya / [ ] Tidak
-> Jika ya, kembali ke tahap mana? ________________________
+**Apakah terjebak solution-first thinking?** [ ] Ya / [✓] Tidak
 
 ---
 
@@ -123,14 +122,14 @@ Gambarkan konteks sistem dari masalah riset di Latihan 1.
 
 | Komponen | Deskripsi |
 |----------|----------|
-| Input | *Contoh: Request HTTP dari browser pengguna* |
-| Process | |
-| Output | |
-| Outcome | |
-| Constraints | |
-| Stakeholders | |
+| Input | *Data sensor suhu dan kelembapan* |
+| Process | *Pengolahan data oleh ESP32 dan pengendalian relay* |
+| Output | *Aktivasi kipas dan heater otomatis* |
+| Outcome | *Pengeringan lebih cepat dan stabil* |
+| Constraints | *Daya listrik, akurasi sensor, kondisi lingkungan* |
+| Stakeholders | *Petani dan pengguna alat* |
 
-**Komponen mana yang paling relevan dengan masalah riset?** _______________
+**Komponen mana yang paling relevan dengan masalah riset?** Process, karena inti penelitian berada pada pengolahan data sensor dan kontrol otomatis.
 
 ---
 
@@ -140,17 +139,16 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Clarity | *Contoh: 4 — cukup jelas tapi perlu spesifikasi dataset* | |
-| Measurability | | |
-| Relevance | | |
-| Testability | | |
-| Impact | | |
+| Clarity | *5* | *Masalah dan tujuan dijelaskan jelas* |
+| Measurability | *5* | *Variabel dapat diukur secara kuantitatif* |
+| Relevance | *5* | *Relevan untuk IoT dan pertanian* |
+| Testability | *4* | *Bisa diuji melalui prototype dan eksperimen* |
+| Impact | *5* | *Berpotensi meningkatkan efisiensi pengeringan* |
 
-**Skor total:** _____ / 25
+**Skor total:** 24 / 25
 
 **Problem statement versi final (1 paragraf):**
-> ___________________________________________________
-> ___________________________________________________
+> Proses pengeringan gabah konvensional masih memiliki kelemahan berupa ketergantungan terhadap cuaca, waktu pengeringan yang lama, dan sulitnya menjaga kestabilan suhu serta kelembapan. Kondisi tersebut menyebabkan kualitas gabah menjadi tidak optimal dan efisiensi kerja menurun. Oleh karena itu, penelitian ini merancang sistem pengering padi otomatis berbasis ESP32 dan sensor DHT11 untuk memonitor serta mengontrol suhu dan kelembapan secara real-time guna meningkatkan efektivitas dan kestabilan proses pengeringan gabah.
 
 ---
 
@@ -159,5 +157,4 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 > Bandingkan "masalah" yang biasa ditemui saat coding (bug, error) dengan masalah riset. Apa perbedaan fundamental dalam cara mendefinisikan dan mendekati keduanya?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Masalah pada coding umumnya berupa bug, error, atau fitur yang belum berjalan sesuai fungsi sehingga fokus utamanya adalah memperbaiki sistem agar dapat bekerja. Sedangkan masalah riset lebih berfokus pada menemukan gap pengetahuan, memahami penyebab suatu fenomena, dan membuktikan sesuatu melalui metode ilmiah. Dalam riset, masalah harus terukur, dapat diuji, memiliki batasan yang jelas, dan menghasilkan kontribusi pengetahuan baru, bukan sekadar membuat sistem berjalan.
