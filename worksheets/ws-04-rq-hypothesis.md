@@ -67,34 +67,47 @@ Jika rantai ini tidak lengkap, RQ belum mature. Bi-directional: RQ yang tidak bi
 ```
 RQ-CONTRIBUTION-HYPOTHESIS
 
-Gap Statement  : ____________________
+Gap Statement  : Belum adanya sistem pengering padi otomatis berbasis ESP32 yang mampu
+mengontrol suhu dan kelembapan secara real-time untuk meningkatkan
+efisiensi pengeringan dibanding metode konvensional.
 
 Research Question:
-  Tipe         : [ ] Comparison  [ ] Improvement  [ ] Exploratory
-  Formulasi    : ____________________
-  Variabel IV  : ____________________
-  Variabel DV  : ____________________
-  Metrik       : ____________________
-  Dataset      : ____________________
-  Baseline     : ____________________
+  Tipe         : [✓] Comparison  [ ] Improvement  [ ] Exploratory
+  Formulasi    : Apakah sistem pengering padi otomatis berbasis ESP32 menggunakan
+  sensor DHT11 menghasilkan waktu pengeringan lebih cepat dan
+  kestabilan suhu lebih baik dibanding metode pengeringan konvensional?
+  Variabel IV  : Metode pengeringan (ESP32 otomatis vs konvensional)
+  Variabel DV  : Waktu pengeringan dan kestabilan suhu
+  Metrik       : Lama waktu pengeringan, suhu rata-rata, perubahan suhu
+  Dataset      : Data hasil pengujian proses pengeringan padi menggunakan sistem ESP32
+  dan metode konvensional
+  Baseline     : Metode pengeringan padi konvensional
 
 Quality Check RQ:
-  [ ] Variabel spesifik
-  [ ] Metrik jelas
-  [ ] Baseline ada
-  [ ] Konteks disebutkan
-  [ ] Memerlukan eksperimen (bukan hanya survei literatur)
+  [✓] Variabel spesifik
+  [✓] Metrik jelas
+  [✓] Baseline ada
+  [✓] Konteks disebutkan
+  [✓] Memerlukan eksperimen (bukan hanya survei literatur)
 
 Contribution Statement:
-  Apa yang baru diketahui : ____________________
-  Jenis kontribusi        : [ ] Improvement  [ ] Comparison  [ ] Novel approach
-  Gap yang diisi          : ____________________
+  Apa yang baru diketahui : Penggunaan ESP32 dan sensor DHT11 dapat meningkatkan efisiensi
+  pengeringan padi serta menjaga kestabilan suhu dibanding metode
+  pengeringan konvensional.
+  Jenis kontribusi        : [✓] Improvement  [ ] Comparison  [ ] Novel approach
+  Gap yang diisi          :  Keterbatasan sistem pengeringan konvensional yang masih bergantung
+  pada cuaca dan belum memiliki kontrol suhu otomatis.
 
 Hypothesis Pair:
-  H₀ : ____________________
-  H₁ : ____________________
-  Threshold              : ____________________
-  Justifikasi threshold  : ____________________
+  H₀ : Tidak ada perbedaan signifikan pada waktu pengeringan dan kestabilan
+  suhu antara sistem pengering padi otomatis berbasis ESP32 dan metode
+  konvensional.
+  H₁ : Sistem pengering padi otomatis berbasis ESP32 menghasilkan waktu
+  pengeringan lebih cepat dan kestabilan suhu lebih baik dibanding
+  metode konvensional.
+  Threshold              : p-value < 0.05
+  Justifikasi threshold  : Nilai 0.05 digunakan sebagai standar umum signifikansi statistik
+  dalam penelitian eksperimen.
 ```
 
 ---
@@ -103,24 +116,26 @@ Hypothesis Pair:
 
 Gunakan gap yang ditemukan di WS-03. Transformasikan menjadi Research Question.
 
-**Gap dari WS-03:** ____________________________________
+**Gap dari WS-03:** Belum adanya sistem pengering padi otomatis berbasis ESP32 yang mampu
+mengontrol suhu dan kelembapan secara real-time untuk meningkatkan
+efisiensi pengeringan dibanding metode konvensional.
 
 **RQ versi pertama (tulis bebas):**
-> ___________________________________________________
+> Apakah sistem pengering padi otomatis dapat meningkatkan efisiensi pengeringan padi?
 
 **Evaluasi RQ:**
 
 | Komponen | Ada? | Isi |
 |----------|------|-----|
-| Metode spesifik | *Contoh: Ya — CNN vs RF* | |
-| Metrik terukur | | |
-| Baseline | | |
-| Dataset/konteks | | |
+| Metode spesifik | *Contoh: Ya — CNN vs RF* | *ESP32 dan sensor DHT11* |
+| Metrik terukur | *Tidak* | *Belum ada ukuran spesifik* |
+| Baseline | *Ya* | *Pengeringan konvensional* |
+| Dataset/konteks | *Ya* | *Pengeringan padi*|
 
-**Tipe RQ:** [ ] Comparison / [ ] Improvement / [ ] Exploratory
+**Tipe RQ:** [✓] Comparison / [ ] Improvement / [ ] Exploratory
 
 **RQ versi revisi (setelah evaluasi):**
-> ___________________________________________________
+> Apakah sistem pengering padi otomatis berbasis ESP32 menggunakan sensor DHT11 menghasilkan waktu pengeringan lebih cepat dan kestabilan suhu lebih baik dibanding metode pengeringan konvensional?
 
 ---
 
@@ -130,14 +145,14 @@ Rumuskan pasangan hipotesis dari RQ di Latihan 1.
 
 | Komponen | Isi |
 |----------|-----|
-| H₀ | *Contoh: Tidak ada perbedaan signifikan F1-Score antara CNN dan RF pada dataset CIC-MalMem-2022* |
-| H₁ | |
-| Metrik | |
-| Threshold | |
-| Justifikasi threshold | |
+| H₀ | *Tidak ada perbedaan signifikan pada waktu pengeringan dan kestabilan suhu antara sistem ESP32 dan metode konvensional* |
+| H₁ | *Sistem ESP32 menghasilkan waktu pengeringan lebih cepat dan kestabilan suhu lebih baik dibanding metode konvensional* |
+| Metrik | *Lama pengeringan dan kestabilan suhu* |
+| Threshold | *p-value < 0.05* |
+| Justifikasi threshold | *Standar umum penelitian statistik* |
 
-**Apakah hipotesis ini falsifiable?** [ ] Ya / [ ] Tidak
-> Bagaimana cara membuktikannya salah? ___________________
+**Apakah hipotesis ini falsifiable?** [✓] Ya / [ ] Tidak
+> Bagaimana cara membuktikannya salah? Dengan melakukan eksperimen pengeringan menggunakan kedua metode, kemudian membandingkan hasil menggunakan analisis statistik.
 
 ---
 
@@ -147,15 +162,15 @@ Lengkapi rantai dari RQ hingga metode analisis.
 
 | Tahap | Isi |
 |-------|-----|
-| RQ | *Contoh: Apakah CNN menghasilkan F1-Score lebih tinggi dari RF...* |
-| Variable (IV) | *Contoh: Jenis algoritma (CNN vs RF)* |
-| Variable (DV) | |
-| Metric | |
-| Data source | |
-| Analysis method | |
+| RQ | *Apakah sistem pengering padi otomatis berbasis ESP32 menggunakan sensor DHT11 menghasilkan waktu pengeringan lebih cepat dibanding metode konvensional?* |
+| Variable (IV) | *Metode pengeringan* |
+| Variable (DV) | *Waktu pengeringan dan kestabilan suhu* |
+| Metric | *Lama pengeringan, suhu rata-rata* |
+| Data source | *Sensor DHT11 dan hasil pengujian pengeringan* |
+| Analysis method | *Uji t dan analisis perbandingan* |
 
-**Apakah rantai lengkap?** [ ] Ya / [ ] Tidak
-> Jika tidak, tahap mana yang perlu direvisi? ______________
+**Apakah rantai lengkap?** [✓] Ya / [ ] Tidak
+> Jika tidak, tahap mana yang perlu direvisi? Tidak ada, karena rantai operasionalisasi sudah lengkap dan setiap tahap (RQ → Variable → Metric → Data → Analysis) telah terhubung dengan jelas.
 
 ---
 
@@ -163,6 +178,6 @@ Lengkapi rantai dari RQ hingga metode analisis.
 
 > Ambil satu judul skripsi/paper yang pernah dibaca. Coba ekstrak RQ-nya. Apakah RQ tersebut memenuhi semua komponen (metode, metrik, baseline, konteks)? Jika tidak, apa yang hilang?
 
-**Judul:** _____________________________________________
-**RQ yang diekstrak:** __________________________________
-**Komponen yang hilang:** _______________________________
+**Judul:** Rancang Bangun Sistem Pengering Padi Otomatis Berbasis ESP32 Menggunakan Sensor Suhu dan Kelembapan
+**RQ yang diekstrak:** Apakah sistem pengering padi otomatis berbasis ESP32 mampu meningkatkan efisiensi pengeringan dan menjaga kestabilan suhu?
+**Komponen yang hilang:** Dataset spesifik dan metrik evaluasi rinci belum dijelaskan secara detail.
