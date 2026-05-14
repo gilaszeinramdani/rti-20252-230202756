@@ -127,7 +127,7 @@ efisiensi pengeringan dibanding metode konvensional.
 
 | Komponen | Ada? | Isi |
 |----------|------|-----|
-| Metode spesifik | *Contoh: Ya — CNN vs RF* | *ESP32 dan sensor DHT11* |
+| Metode spesifik | *Ya* | *ESP32 dan sensor DHT11* |
 | Metrik terukur | *Tidak* | *Belum ada ukuran spesifik* |
 | Baseline | *Ya* | *Pengeringan konvensional* |
 | Dataset/konteks | *Ya* | *Pengeringan padi*|
