@@ -80,25 +80,25 @@ Jika variabel tidak bisa di-map ke komponen apapun → arsitektur perlu didesain
 ```
 SYSTEM-EXPERIMENT MAPPING
 
-Research Question: ____________________
+Research Question: Bagaimana penerapan sistem pengering padi otomatis berbasis ESP32 dan sensor suhu–kelembapan dapat meningkatkan efisiensi serta kestabilan proses pengeringan padi dibanding metode konvensional?
 
 Variable → Component Mapping:
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi/Pengukuran |
 |----------|------|-----------------|---------------------------|
-|          | IV   |                 |                           |
-|          | DV   |                 |                           |
-|          | CV   |                 |                           |
+|Metode kontrol otomatis suhu & kelembapan|IV|Program kontrol ESP32 + relay|Mengubah nilai set point suhu/kelembapan pada program|
+|Efisiensi waktu pengeringan|DV|Modul monitoring waktu|Mengukur lama proses pengeringan|
+|Kondisi ruang pengering|CV|Ruang pengering prototype|Tidak diubah selama eksperimen|
 
 4 Prinsip Desain:
-  [ ] Traceability — Setiap komponen bisa ditelusuri ke variabel
-  [ ] Variable Isolation — IV bisa diubah tanpa mengubah CV
-  [ ] Measurement Integration — Pengukuran DV built-in
-  [ ] Reproducibility — Setup bisa direkonstruksi
+  [✓] Traceability — Setiap komponen bisa ditelusuri ke variabel
+  [✓] Variable Isolation — IV bisa diubah tanpa mengubah CV
+  [✓] Measurement Integration — Pengukuran DV built-in
+  [✓] Reproducibility — Setup bisa direkonstruksi
 
 Experimental Setup:
-  Input data     : ____________________
-  Parameter      : ____________________
-  Output format  : ____________________
+  Input data     : Data suhu dan kelembapan dari sensor DHT11/DHT22
+  Parameter      : Set point suhu, kelembapan, waktu pengeringan
+  Output format  : Nilai suhu, kelembapan, status relay, waktu pengeringan
 ```
 
 ---
@@ -107,16 +107,16 @@ Experimental Setup:
 
 Gunakan RQ dan variabel dari WS-05. Petakan ke komponen sistem.
 
-**RQ:** __________________________________________________
+**RQ:** Bagaimana sistem pengering padi otomatis berbasis ESP32 dapat menjaga suhu dan kelembapan agar proses pengeringan lebih efisien?
 
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi / Pengukuran |
 |----------|------|-----------------|---------------------------|
-| *Contoh: Jenis model* | *IV* | *Modul classifier (swap RF ↔ CNN)* | *Ganti config `model_type`* |
-| | DV | | |
-| | CV | | |
+| *Kontrol otomatis suhu* | *IV* | *ESP32 + relay* | *Mengubah set point suhu* |
+| *Waktu pengeringan* | *DV* | *Timer/log sistem* | *Mengukur durasi pengeringan* |
+| *Jenis sensor* | *CV* | *DHT11* | *Tidak diubah* |
 
-**Apakah semua variabel bisa di-map?** [ ] Ya / [ ] Tidak
-> Jika tidak, komponen apa yang perlu ditambahkan? _________
+**Apakah semua variabel bisa di-map?** [✓] Ya / [ ] Tidak
+> Jika tidak, komponen apa yang perlu ditambahkan? 
 
 ---
 
@@ -126,14 +126,14 @@ Evaluasi desain sistem terhadap 4 prinsip.
 
 | Prinsip | Status | Bukti / Penjelasan |
 |---------|--------|-------------------|
-| Traceability | *Contoh: ✅ — setiap modul punya label variabel* | |
-| Modularity | | |
-| Controllability | | |
-| Measurability | | |
+| Traceability | *Baik* | *Setiap komponen sistem memiliki hubungan langsung dengan variabel penelitian, misalnya sensor DHT11 untuk variabel suhu dan kelembapan, serta relay untuk kontrol aktuator.* |
+| Modularity | *Baik* | *Sistem dibagi menjadi beberapa modul terpisah seperti sensor, ESP32, relay, kipas, heater, dan LCD sehingga mudah diuji atau diganti tanpa memengaruhi seluruh sistem.* |
+| Controllability | *Baik* | *Nilai batas suhu dan kelembapan dapat diatur melalui program pada ESP32 sehingga kondisi eksperimen dapat dikontrol.* |
+| Measurability | *Baik* | *Sistem mampu menghasilkan data suhu, kelembapan, dan status aktuator secara otomatis melalui sensor dan tampilan LCD secara real-time.* |
 
-**Prinsip mana yang paling sulit dipenuhi?** _______________
+**Prinsip mana yang paling sulit dipenuhi?** Measurability
 **Strategi untuk mengatasinya:**
-> ___________________________________________________
+> Menambahkan sistem data logging atau penyimpanan otomatis agar seluruh data sensor dapat direkam secara konsisten dan dianalisis dengan lebih akurat selama proses eksperimen berlangsung.
 
 ---
 
@@ -146,14 +146,14 @@ Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
 
 | Kondisi | Komponen A | Komponen B | Komponen C | Hasil yang Diharapkan |
 |---------|-----------|-----------|-----------|----------------------|
-| Full | *Contoh: ✅ CNN* | *Contoh: ✅ Temporal features* | *Contoh: ✅ Z-score norm* | *Baseline penuh* |
-| – A | ❌ (ganti RF) | ✅ | ✅ | |
-| – B | ✅ | ❌ (tanpa temporal) | ✅ | |
-| – C | ✅ | ✅ | ❌ (tanpa normalisasi) | |
+| Full | *Sensor aktif* | *Kipas aktif* | *Heater aktif* | *Sistem bekerja optimal, suhu dan kelembapan stabil* |
+| – A | *Sensor dimatikan* | ** | ** | *Sistem tidak dapat membaca kondisi suhu dan kelembapan secara otomatis* |
+| – B | ** | *Kipas dimatikan* | ** | *Distribusi udara panas tidak merata sehingga pengeringan lebih lambat* |
+| – C | ** | ** | *Heater dimatikan* | *Proses pengeringan kurang maksimal karena tidak ada sumber panas utama* |
 
-**Komponen mana yang diprediksi paling berkontribusi?** _____
+**Komponen mana yang diprediksi paling berkontribusi?** Komponen B (Kipas Otomatis)
 **Mengapa?**
-> ___________________________________________________
+> Karena kipas berfungsi mendistribusikan udara panas secara merata ke seluruh ruang pengering sehingga suhu lebih stabil dan proses pengeringan padi menjadi lebih cepat serta efisien.
 
 ---
 
@@ -162,5 +162,4 @@ Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
 > Apa risiko jika sistem dibangun seperti produk (monolitik, fitur lengkap) lalu baru dilakukan eksperimen? Mengapa arsitektur modular penting untuk riset?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Sistem monolitik membuat variabel sulit dipisahkan sehingga peneliti tidak dapat mengetahui komponen mana yang benar-benar memengaruhi hasil penelitian. Selain itu, eksperimen menjadi sulit direproduksi karena banyak fitur saling bergantung.
