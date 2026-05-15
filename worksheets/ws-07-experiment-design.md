@@ -68,36 +68,36 @@ Ancaman validitas harus diidentifikasi **sebelum** eksperimen dan mitigasinya di
 ```
 EXPERIMENT DESIGN
 
-Research Question : ____________________
-Hypothesis        : ____________________
-Tipe Eksperimen   : [ ] Comparison  [ ] Ablation  [ ] Parameter
+Research Question : Apakah sistem pengering padi otomatis berbasis ESP32 dengan sensor suhu dan kelembapan mampu meningkatkan efisiensi dan kestabilan proses pengeringan dibanding metode konvensional?
+Hypothesis        : Sistem otomatis berbasis ESP32 mampu mempercepat waktu pengeringan dan menjaga kestabilan suhu serta kelembapan lebih baik dibanding pengeringan manual.
+Tipe Eksperimen   : [✓] Comparison  [ ] Ablation  [ ] Parameter
 
 Kondisi Eksperimen:
 | Kondisi | Deskripsi | IV Value | CV Settings |
 |---------|-----------|----------|-------------|
-| Control |           |          |             |
-| Treatment |         |          |             |
+| Control |Pengeringan padi konvensional/manual|Tanpa sistem otomatis|Jenis gabah sama, berat gabah sama, ruangan sama|
+| Treatment |Pengeringan menggunakan sistem otomatis berbasis ESP32|ESP32 + DHT11 + relay + kipas|Jenis gabah sama, berat gabah sama, ruangan sama|
 
 Fairness Checklist:
-  [ ] Dataset identik untuk semua kondisi
-  [ ] Preprocessing setara
-  [ ] Tuning effort setara
-  [ ] Environment identik
-  [ ] Metrik evaluasi sama
+  [✓] Dataset identik untuk semua kondisi
+  [✓] Preprocessing setara
+  [✓] Tuning effort setara
+  [✓] Environment identik
+  [✓] Metrik evaluasi sama
 
 Threat Analysis:
 | Threat Type | Ancaman Spesifik | Mitigasi |
 |-------------|-----------------|----------|
-| Internal    |                 |          |
-| External    |                 |          |
-| Construct   |                 |          |
-| Conclusion  |                 |          |
+| Internal    |Perubahan suhu lingkungan selama eksperimen|Pengujian dilakukan pada ruang dan waktu yang sama|
+| External    |Sistem hanya diuji pada satu jenis gabah|Menguji beberapa jenis gabah dan kondisi lingkungan berbeda|
+| Construct   |Sensor DHT11 memiliki akurasi terbatas|Melakukan kalibrasi sensor sebelum pengujian|
+| Conclusion  |Jumlah sampel pengujian terlalu sedikit|Melakukan pengulangan eksperimen beberapa kali|
 
 Statistical Plan:
-  Uji statistik   : ____________________
-  Justifikasi      : ____________________
-  Alpha            : ____________________
-  Effect size min  : ____________________
+  Uji statistik   : Independent t-test
+  Justifikasi      : Membandingkan rata-rata waktu pengeringan antara metode manual dan sistem otomatis
+  Alpha            : 0.05
+  Effect size min  : 0.5
 ```
 
 ---
@@ -106,13 +106,13 @@ Statistical Plan:
 
 Susun desain eksperimen berdasarkan RQ, variabel, dan sistem dari WS-04 sampai WS-06.
 
-**RQ:** __________________________________________________
-**Tipe eksperimen:** [ ] Comparison / [ ] Ablation / [ ] Parameter
+**RQ:** Apakah sistem pengering padi otomatis berbasis ESP32 dengan sensor suhu dan kelembapan mampu meningkatkan efisiensi dan kestabilan proses pengeringan dibanding metode konvensional?
+**Tipe eksperimen:** [✓] Comparison / [ ] Ablation / [ ] Parameter
 
 | Kondisi | Deskripsi | IV Value | CV Settings |
 |---------|-----------|----------|-------------|
-| Control | *Contoh: RF baseline dari literatur* | *RF* | *Dataset X, 80:20 split, seed 42* |
-| Treatment | | | |
+| Control | *Pengeringan padi secara manual/tradisional tanpa sistem otomatis* | *Tanpa ESP32 dan sensor otomatis* | *Jenis gabah sama, berat gabah sama, ruangan sama, waktu pengujian sama* |
+| Treatment | *Pengeringan menggunakan sistem otomatis berbasis ESP32 dan sensor DHT11* | *ESP32 + sensor DHT11 + relay + kipas* | *Jenis gabah sama, berat gabah sama, ruangan sama, waktu pengujian sama* |
 
 ---
 
@@ -122,14 +122,14 @@ Evaluasi apakah desain eksperimen di Latihan 1 sudah fair.
 
 | Kriteria | Status | Detail |
 |----------|--------|--------|
-| Dataset identik | *Contoh: ✅ — sama-sama pakai CIC-MalMem-2022* | |
-| Preprocessing setara | | |
-| Tuning effort setara | | |
-| Environment identik | | |
-| Metrik evaluasi sama | | |
+| Dataset identik | *✅* | *Menggunakan jenis dan jumlah gabah yang sama pada semua pengujian* |
+| Preprocessing setara | *✅* | *Kondisi awal gabah dan kadar air awal disamakan* |
+| Tuning effort setara | *✅* | *Pengaturan suhu dan kelembapan dilakukan dengan prosedur yang sama* |
+| Environment identik | *✅* | *Pengujian dilakukan pada ruangan dan kondisi lingkungan yang sama* |
+| Metrik evaluasi sama | *✅* | *Menggunakan metrik waktu pengeringan, suhu, dan kelembapan untuk semua kondisi* |
 
-**Ada yang tidak fair?** [ ] Ya / [ ] Tidak
-> Jika ya, bagaimana cara memperbaikinya? ________________
+**Ada yang tidak fair?** [ ] Ya / [✓] Tidak
+> Jika ya, bagaimana cara memperbaikinya? Karena seluruh kondisi pengujian dibuat sama, maka perbandingan antara metode manual dan sistem otomatis dapat dianggap fair.
 
 ---
 
@@ -139,14 +139,14 @@ Identifikasi ancaman validitas untuk desain eksperimen ini.
 
 | Threat Type | Ancaman Spesifik | Mitigasi |
 |-------------|-----------------|----------|
-| Internal | *Contoh: Data leakage antara train-test* | *Contoh: Gunakan stratified split, validasi tidak ada overlap* |
-| External | | |
-| Construct | | |
-| Conclusion | | |
+| Internal | *Perubahan suhu atau kelembapan lingkungan selama eksperimen dapat mempengaruhi hasil* | *Melakukan pengujian pada ruang dan waktu yang sama* |
+| External | *Sistem hanya diuji pada satu jenis gabah dan skala kecil* | *Menguji sistem pada beberapa jenis gabah dan kondisi berbeda* |
+| Construct | *Sensor DHT11 memiliki tingkat akurasi terbatas dalam membaca suhu dan kelembapan* | *Sensor DHT11 memiliki tingkat akurasi terbatas dalam membaca suhu dan kelembapan* |
+| Conclusion | *Jumlah sampel dan pengulangan eksperimen terlalu sedikit* | *Melakukan eksperimen berulang dan menambah jumlah sampel pengujian* |
 
-**Ancaman mana yang paling sulit dimitigasi?** _____________
+**Ancaman mana yang paling sulit dimitigasi?** External validity
 **Mengapa?**
-> ___________________________________________________
+> Karena kondisi nyata di lapangan sangat beragam, seperti jenis gabah, cuaca, kelembapan udara, dan kapasitas pengeringan yang berbeda-beda sehingga hasil pengujian laboratorium belum tentu langsung dapat digeneralisasi.
 
 ---
 
@@ -155,6 +155,6 @@ Identifikasi ancaman validitas untuk desain eksperimen ini.
 > Sebuah paper melaporkan "metode kami mengalahkan semua baseline." Apa 3 pertanyaan pertama yang harus diajukan untuk mengevaluasi klaim ini?
 
 **Jawaban:**
-1. ___________________________________________________
-2. ___________________________________________________
-3. ___________________________________________________
+1. Apakah semua metode diuji menggunakan dataset dan kondisi eksperimen yang sama?
+2. Apakah baseline yang digunakan sudah dituning dan dibandingkan secara fair?
+3. Apakah peningkatan hasil yang diperoleh signifikan secara statistik dan menggunakan metrik evaluasi yang sama?
