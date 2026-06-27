@@ -86,8 +86,8 @@ Software:
 Dependencies:
 | Library | Version | Sumber | Hash/Checksum |
 |---------|---------|--------|---------------|
-|ESP32 Board Package|3.x|Arduino Board Manager|Disesuaikan saat instalasi|
-|DHT Sensor Library|1.x|Arduino Library Manager|Disesuaikan saat instalasi|
+| ESP32 Board Package | 3.x|Arduino Board Manager | Disesuaikan saat instalasi |
+| DHT Sensor Library | 1.x|Arduino Library Manager | Disesuaikan saat instalasi |
 
 Konfigurasi:
   Config file     : config.h atau pengaturan langsung pada program Arduino
