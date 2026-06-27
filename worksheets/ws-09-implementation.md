@@ -86,7 +86,7 @@ Software:
 Dependencies:
 | Library | Version | Sumber | Hash/Checksum |
 |---------|---------|--------|---------------|
-|         |         |        |               |
+|    a     |         |        |               |
 |         |         |        |               |
 
 Konfigurasi:
