@@ -66,30 +66,30 @@ Jika gagal di langkah awal → tidak perlu lanjut.
 DATA VALIDATION CHECKLIST
 
 Completeness:
-  [ ] Semua skenario tercakup
-  [ ] Jumlah run sesuai rencana
+  [x] Semua skenario tercakup
+  [x] Jumlah run sesuai rencana
   [ ] Tidak ada file output hilang
-  Missing: ____ dari ____ data points
+  Missing: 1 dari 20 data points
 
 Format Consistency:
-  [ ] Semua file format sama (CSV/JSON/...)
-  [ ] Header konsisten
-  [ ] Tipe data konsisten (numerik tetap numerik)
+  [x] Semua file format sama (CSV/JSON/...)
+  [x] Header konsisten
+  [x] Tipe data konsisten (numerik tetap numerik)
 
 Range & Logic:
-  [ ] Nilai dalam range masuk akal
-  [ ] Tidak ada waktu negatif
-  [ ] Metrik 0–100%, tidak di luar range
-  Anomali ditemukan: ____________________
+  [x] Nilai dalam range masuk akal
+  [x] Tidak ada waktu negatif
+  [x] Metrik 0–100%, tidak di luar range
+  Anomali ditemukan: terdapat satu run dengan nilai akurasi/stabilitas sistem yang turun cukup jauh dibanding run lainnya
 
 Cross-Validation:
-  [ ] Run identik → hasil mendekati
-  [ ] Trend konsisten dengan ekspektasi teori
+  [x] Run identik → hasil mendekati
+  [x] Trend konsisten dengan ekspektasi teori
 
 Keputusan:
   [ ] Data siap analisis
-  [ ] Perlu cleaning
-  [ ] Perlu re-run (skenario: ____)
+  [x] Perlu cleaning
+  [x] Perlu re-run (skenario: re-run pada pengujian pengeringan otomatis yang datanya tidak lengkap dan run yang memiliki nilai terlalu rendah)
 ```
 
 ---
@@ -100,15 +100,15 @@ Verifikasi apakah semua data yang direncanakan sudah terkumpul.
 
 | Skenario | Run Direncanakan | Run Tercatat | Missing | Alasan |
 |----------|-----------------|-------------|---------|--------|
-| *Contoh: BERT, DS-1* | *10* | *10* | *0* | *—* |
-| *LSTM, DS-3* | *10* | *8* | *2* | *OOM pada run 7 & 9* |
-| | | | | |
-| | | | | |
+| Pengujian sensor DHT11 | 5 | 5 | 0 | Semua data suhu dan kelembapan berhasil tercatat |
+| Pengujian kontrol kipas dan motor | 5 | 5 | 0 | Sistem kontrol berjalan dan log berhasil tersimpan |
+| Pengujian pengeringan otomatis berbasis ESP32 | 5 | 4 | 1 | Pada salah satu run, data tidak tersimpan dengan lengkap karena koneksi rangkaian sempat tidak stabil |
+| Pengujian pengeringan manual/konvensional | 5 | 5 | 0 | Semua proses pengamatan berhasil dicatat secara manual |
 
-**Total expected:** ____ | **Total actual:** ____ | **Missing:** ____
+**Total expected:** 20 | **Total actual:** 19 | **Missing:** 1
 
-**Keputusan untuk data missing:**
-> ___________________________________________________
+**Keputusan untuk data missing:** 
+> Data yang hilang tidak langsung diganti atau dibuat perkiraan, karena bisa memengaruhi hasil analisis. Run yang hilang perlu dilakukan ulang dengan kondisi yang sama, seperti berat padi, durasi pengeringan, posisi sensor, dan kondisi ruang pengering yang dibuat tetap. Setelah re-run selesai, data baru dicatat dengan keterangan bahwa data tersebut merupakan pengulangan dari run yang gagal.
 
 ---
 
@@ -127,10 +127,10 @@ Periksa data Anda untuk anomali. Gunakan metode IQR atau z-score.
 | 5 | *91.0* |
 
 **Deteksi outlier:**
-- Q1 = ____ | Q3 = ____ | IQR = ____
-- Batas bawah (Q1 - 1.5×IQR) = ____
-- Batas atas (Q3 + 1.5×IQR) = ____
-- Outlier terdeteksi: ____
+- Q1 = 90.8 | Q3 = 91.2 | IQR = Q3
+- Batas bawah (Q1 - 1.5×IQR) = 90.8 - 1.5 × 0.4 = 90.2
+- Batas atas (Q3 + 1.5×IQR) = Q3 + 1.5 × IQR 
+- Outlier terdeteksi: 91.2 + 1.5 × 0.4 = 91.8
 
 **Investigasi (untuk setiap outlier):**
 
@@ -144,12 +144,16 @@ Periksa data Anda untuk anomali. Gunakan metode IQR atau z-score.
 
 Buat laporan validasi ringkas untuk dataset eksperimen Anda.
 
-**1. Completeness:** ____% data terkumpul
-**2. Format:** [ ] Konsisten / [ ] Ada inkonsistensi: ____
-**3. Range check (anomali):** ____
-**4. Logic check:** [ ] Parameter sesuai plan / [ ] Ada ketidaksesuaian: ____
+**1. Completeness:** 95% data terkumpul
+**2. Format:** [x] Konsisten / [ ] Ada inkonsistensi: ____
+**3. Range check (anomali):** Dari hasil pengecekan, sebagian besar data masih berada dalam range yang masuk akal. Nilai suhu, kelembapan, dan waktu pengeringan tidak menunjukkan angka negatif atau nilai yang tidak mungkin.
 
-**Kesimpulan:** [ ] Data siap analisis / [ ] Perlu tindakan: ____
+Namun, terdapat satu anomali pada Run 4 dengan nilai akurasi/stabilitas sistem sebesar 78.3%. Nilai ini jauh lebih rendah dibandingkan run lainnya yang berada di sekitar 90–91%. Setelah dihitung menggunakan metode IQR, Run 4 masuk sebagai outlier.
+
+Kemungkinan penyebabnya adalah gangguan pada sensor, koneksi kabel, relay, atau kerja kipas yang kurang stabil saat proses pengujian.
+**4. Logic check:** [x] Parameter sesuai plan / [ ] Ada ketidaksesuaian: ____
+
+**Kesimpulan:** [ ] Data siap analisis / [x] Perlu tindakan: ____
 
 ---
 
@@ -157,5 +161,11 @@ Buat laporan validasi ringkas untuk dataset eksperimen Anda.
 
 > Apa perbedaan antara "data yang benar" dan "data yang dipercaya"? Mengapa proses validasi formal diperlukan meskipun data dikumpulkan secara otomatis?
 
-> ___________________________________________________
-> ___________________________________________________
+> Menurut saya, “data yang benar” dan “data yang dipercaya” itu tidak selalu sama. Data yang benar bisa saja berarti angka yang muncul memang berasal dari alat atau sistem. Misalnya sensor DHT11 membaca suhu 35°C dan kelembapan 70%. Namun, angka itu belum tentu langsung bisa dipercaya, karena bisa saja sensor sedang error, kabel longgar, posisi sensor kurang tepat, atau sistem logging tidak mencatat data dengan benar.
+
+> Sedangkan data yang dipercaya adalah data yang sudah melewati proses pemeriksaan. Artinya, data tersebut sudah dicek dari sisi kelengkapan, format, range nilai, dan kesesuaiannya dengan desain eksperimen. Jadi, data tidak hanya sekadar ada, tetapi juga bisa dipertanggungjawabkan.
+
+> Proses validasi formal tetap diperlukan meskipun data dikumpulkan secara otomatis. Hal ini karena sistem otomatis juga bisa mengalami kesalahan. Misalnya sensor salah membaca, ESP32 gagal menyimpan data, relay tidak merespon, atau file log tidak lengkap. Kalau data seperti itu langsung dipakai untuk analisis, hasil penelitian bisa menjadi kurang akurat.
+
+> Dalam penelitian sistem pengering padi otomatis, validasi data sangat penting karena hasil pengujian akan digunakan untuk menilai apakah alat benar-benar bekerja dengan baik atau tidak. Tanpa validasi, peneliti bisa saja mengambil kesimpulan yang keliru. Oleh karena itu, setiap data perlu dicek dulu sebelum dianggap layak untuk dianalisis.
+
