@@ -66,33 +66,37 @@ Data leakage terjadi ketika informasi dari test set "bocor" ke preprocessing:
 ```
 PREPROCESSING LOG
 
-Dataset           : ____________________
-Jumlah data awal  : ____________________
+Dataset           : data_log_pengering_padi_esp32.csv
+Jumlah data awal  : 100 record
 
 Cleaning:
 | Masalah | Jumlah Kasus | Penanganan | Justifikasi |
 |---------|-------------|------------|-------------|
-| Missing |             |            |             |
-| Duplikat|             |            |             |
-| Error   |             |            |             |
+| Missing | 3 kasus | Data yang kosong pada kolom suhu dan kelembapan dihapus | Jumlah data kosong masih sedikit, yaitu 3 dari 100 data, sehingga tidak terlalu memengaruhi keseluruhan data |
+| Duplikat | 2 kasus | Data duplikat dihapus setelah dicek berdasarkan waktu pencatatan dan nilai sensor | Data memiliki timestamp dan nilai sensor yang sama, sehingga dianggap sebagai data tercatat ganda |
+| Error format | 4 kasus | Format angka diperbaiki, misalnya koma diganti titik dan satuan dihapus | Data perlu dibuat seragam agar dapat dihitung dan dianalisis dengan benar |
+
 
 Transformation:
 | Transformasi | Variabel | Detail | Alasan |
 |-------------|----------|--------|--------|
-|             |          |        |        |
+| Konversi tipe data | suhu, kelembapan, waktu_pengeringan | Diubah dari teks menjadi angka | Supaya data bisa dihitung secara statistik |
+| Penghapusan satuan | suhu, kelembapan | Contoh: "35°C" menjadi 35 dan "70%" menjadi 70 | Agar format data lebih bersih dan tidak mengganggu proses analisis |
+| Pembuatan status kondisi | suhu dan kelembapan | Dibuat kategori: normal, terlalu tinggi, atau terlalu lembap | Untuk memudahkan pembacaan kondisi sistem saat pengujian |
+| Penyamaan format waktu | timestamp | Format waktu dibuat seragam | Supaya urutan data pengujian lebih mudah dibaca |
 
 Normalization:
-  Metode    : ____________________
-  Alasan    : ____________________
-  Parameter : (dihitung dari: training set / seluruh data)
+  Metode    : Tidak dilakukan normalisasi 
+  Alasan    : Data yang dianalisis masih berupa suhu, kelembapan, waktu, dan status alat. Nilainya masih mudah dibaca dalam satuan asli, sehingga normalisasi belum terlalu dibutuhkan.
+  Parameter : Tidak ada, karena normalisasi tidak digunakan.
 
 Leakage Check:
-  [ ] Parameter normalisasi dari training set saja
-  [ ] Tidak ada informasi test set dalam preprocessing
-  [ ] Cross-validation dilakukan setelah split
+  [x] Parameter normalisasi dari training set saja
+  [x] Tidak ada informasi test set dalam preprocessing
+  [x] Cross-validation dilakukan setelah split
 
-Jumlah data akhir : ____________________
-Script tersedia   : [ ] Ya → path: ____ | [ ] Belum
+Jumlah data akhir : 91 record
+Script tersedia   : [ ] Ya → path: ____ | [x] Belum
 ```
 
 ---
@@ -103,14 +107,15 @@ Periksa dataset Anda (atau dataset contoh) dan dokumentasikan masalah yang ditem
 
 | Masalah | Jumlah Kasus | Penanganan | Justifikasi |
 |---------|-------------|------------|-------------|
-| *Contoh: Missing di kolom "label"* | *12 dari 500 (2.4%)* | *Listwise deletion* | *< 5%, distribusi random (MCAR)* |
-| | | | |
-| | | | |
-| | | | |
+| Missing di kolom suhu dan kelembapan | 3 dari 100 data | Data dihapus | Karena jumlahnya kecil dan tidak sampai 5%, penghapusan data masih aman dilakukan |
+| Data duplikat pada timestamp yang sama | 2 dari 100 data | Salah satu data dihapus | Karena timestamp dan nilai sensornya sama persis, data dianggap tercatat dua kali |
+| Format suhu tidak seragam | 2 dari 100 data | Format diperbaiki | Ada data yang tertulis “35°C”, sedangkan data lain hanya angka. Format harus disamakan |
+| Format kelembapan tidak seragam | 2 dari 100 data | Simbol persen dihapus | Data seperti “70%” diubah menjadi “70” agar bisa dihitung |
+| Nilai suhu tidak masuk akal | 1 dari 100 data | Data dicek ulang, lalu dihapus | Nilai terlalu jauh dari kondisi normal pengeringan sehingga dianggap error pembacaan sensor |
 
-**Jumlah data sebelum cleaning:** ____
-**Jumlah data setelah cleaning:** ____
-**Persentase data yang hilang/berubah:** ____%
+**Jumlah data sebelum cleaning:** 100 record 
+**Jumlah data setelah cleaning:** 91 record  
+**Persentase data yang hilang/berubah:** 9%
 
 ---
 
@@ -120,16 +125,19 @@ Tentukan apakah data Anda perlu normalisasi, dan jika ya, metode apa yang tepat.
 
 | Variabel | Range Asli | Distribusi | Outlier? | Metode Normalisasi | Alasan |
 |----------|-----------|-----------|----------|-------------------|--------|
-| *Contoh: response_time* | *0.1 – 45.2s* | *Right-skewed* | *Ya (45.2s)* | *Robust scaling* | *Ada outlier, perlu robust* || *Contoh: accuracy_score* | *0.72 – 0.95* | *Normal, narrow* | *Tidak* | *Tidak perlu* | *Sudah dalam [0,1], metode berbasis distance tidak digunakan* || | | | | | |
-| | | | | | |
+| Suhu | 28°C – 55°C | Cenderung normal | Tidak terlalu terlihat | Tidak perlu | Nilai suhu masih mudah dibaca dan memang dibutuhkan dalam satuan aslinya |
+| Kelembapan | 40% – 85% | Menurun selama proses pengeringan | Tidak | Tidak perlu | Kelembapan lebih jelas dianalisis dalam bentuk persen |
+| Waktu pengeringan | 0 – 120 menit | Bertambah sesuai proses | Tidak | Tidak perlu | Waktu lebih mudah dipahami dalam satuan menit |
+| Status kipas | ON/OFF | Kategori | Tidak | Encoding sederhana | Karena datanya berbentuk kategori, cukup diubah menjadi 1 untuk ON dan 0 untuk OFF jika diperlukan |
+| Status motor | ON/OFF | Kategori | Tidak | Encoding sederhana | Sama seperti status kipas, cukup dikodekan jika akan dianalisis secara numerik |
 
-**Apakah normalisasi diperlukan?** [ ] Ya / [ ] Tidak
+
+**Apakah normalisasi diperlukan?** [ ] Ya / [x] Tidak
 **Justifikasi:**
-> ___________________________________________________
-
+> Normalisasi belum diperlukan karena data yang digunakan masih dalam skala yang jelas dan mudah dipahami. Suhu, kelembapan, dan waktu pengeringan lebih baik tetap ditampilkan dalam satuan aslinya agar hasil analisis lebih mudah dijelaskan. Selain itu, penelitian ini lebih fokus pada pengamatan kinerja alat, bukan pada model machine learning berbasis jarak seperti KNN atau clustering.
 **Leakage check:**
-- [ ] Parameter dihitung dari training set saja
-- [ ] Normalisasi diterapkan setelah train-test split
+- [x] Parameter dihitung dari training set saja
+- [x] Normalisasi diterapkan setelah train-test split
 
 ---
 
@@ -140,16 +148,27 @@ Buat ringkasan preprocessing lengkap — dokumentasi yang cukup bagi orang lain 
 ```
 PREPROCESSING SUMMARY
 
-1. Dataset: ____________________
-2. Data awal: ____ records, ____ features
+1. Dataset: data_log_pengering_padi_esp32.csv
+2. Data awal: 100 records records, 6 features features
+  Fitur yang digunakan:
+   - timestamp
+   - suhu
+   - kelembapan
+   - waktu_pengeringan
+   - status_kipas
+   - status_motor
 3. Cleaning:
-   - Missing values: ____ kasus, metode: ____
-   - Duplikat: ____ kasus, tindakan: ____
-   - Error: ____ kasus, tindakan: ____
-4. Transformation: ____________________
-5. Normalisasi: ____ (metode), parameter dari ____
-6. Data akhir: ____ records, ____ features
-7. Leakage check: [ ] Lulus / [ ] Ada masalah
+   - Missing values: 3 kasus kasus, metode: listwise deletion  
+     Data yang kosong dihapus karena jumlahnya masih kecil dan tidak terlalu memengaruhi jumlah data keseluruhan.
+   - Duplikat: 2 kasus kasus, tindakan: hapus salah satu data  
+     Data duplikat ditemukan pada timestamp dan nilai sensor yang sama, sehingga hanya satu data yang dipertahankan.
+   - Error: 4 kasus kasus, tindakan: format diperbaiki  
+     Error yang ditemukan berupa format suhu dan kelembapan yang tidak seragam, seperti penggunaan simbol °C dan %. Format tersebut dibersihkan agar data dapat diproses.
+4. Transformation: Transformasi dilakukan dengan mengubah kolom suhu, kelembapan, dan waktu pengeringan menjadi tipe numerik. Selain itu, status kipas dan motor dapat diubah menjadi kode angka, yaitu 1 untuk ON dan 0 untuk OFF, apabila dibutuhkan dalam analisis lanjutan.
+5. Normalisasi: Tidak dilakukan normalisasi.  
+   Alasannya, data masih lebih mudah dibaca dalam satuan asli. Suhu tetap menggunakan Celcius, kelembapan tetap dalam persen, dan waktu tetap dalam menit. (metode), parameter dari tidak ada, karena normalisasi tidak digunakan.
+6. Data akhir:  91 records records, 6 features
+7. Leakage check: [x] Lulus / [ ] Ada masalah
 ```
 
 ---
@@ -158,5 +177,7 @@ PREPROCESSING SUMMARY
 
 > Apakah Anda pernah melakukan normalisasi "karena biasa dilakukan" tanpa mempertimbangkan apakah benar-benar diperlukan? Apa risiko over-preprocessing?
 
-> ___________________________________________________
-> ___________________________________________________
+> Saya pernah berpikir bahwa normalisasi itu seperti langkah wajib sebelum data dianalisis. Padahal setelah dipahami, normalisasi tidak selalu diperlukan. Dalam penelitian sistem pengering padi ini, data seperti suhu, kelembapan, dan waktu justru lebih mudah dibaca jika tetap menggunakan satuan aslinya. Kalau semua data langsung dinormalisasi tanpa alasan yang jelas, hasilnya bisa menjadi kurang mudah dipahami.
+
+> Risiko dari over-preprocessing adalah data bisa berubah terlalu jauh dari kondisi aslinya. Data yang sebenarnya masih wajar bisa dianggap aneh, atau sebaliknya data yang penting malah dihapus karena dianggap mengganggu. Selain itu, terlalu banyak preprocessing juga bisa membuat hasil penelitian terlihat rapi, tetapi sebenarnya kehilangan makna aslinya. Karena itu, preprocessing harus dilakukan seperlunya saja, sesuai kebutuhan analisis, dan setiap langkahnya harus dijelaskan dengan jujur.
+
