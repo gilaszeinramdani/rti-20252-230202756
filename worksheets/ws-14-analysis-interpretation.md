@@ -81,7 +81,7 @@ ANALYSIS & INTERPRETATION
    | Skenario | Mean | Std | Median | Min | Max | n |
    |----------|------|-----|--------|-----|-----|---|
    | Pengeringan manual | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi sesuai jumlah percobaan |
-| Pengeringan otomatis berbasis ESP32 | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi sesuai jumlah percobaan |
+   | Pengeringan otomatis berbasis ESP32 | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi setelah pengujian | Diisi sesuai jumlah percobaan |
 
 2. Uji Hipotesis:
    Uji yang digunakan  : Paired t-test atau Wilcoxon signed-rank test
@@ -102,10 +102,10 @@ ANALYSIS & INTERPRETATION
    | Jenis | Ancaman | Dampak | Mitigasi |
    |-------|---------|--------|----------|
    | Internal validity | Kondisi suhu dari sumber panas tidak selalu stabil | Hasil pengeringan bisa berubah-ubah antar percobaan | Mengatur jarak sumber panas dan melakukan pengujian berulang |
-| External validity | Pengujian masih berupa prototype | Hasil belum tentu sama jika diterapkan pada skala besar | Melakukan pengembangan alat dengan kapasitas lebih besar |
-| Construct validity | Sensor DHT11 hanya membaca suhu dan kelembapan udara, bukan kadar air gabah secara langsung | Data kelembapan belum sepenuhnya mewakili kadar air gabah | Menambahkan sensor kadar air gabah pada pengembangan berikutnya |
-| Statistical limitation | Jumlah pengujian masih terbatas | Kesimpulan statistik belum terlalu kuat | Menambah jumlah percobaan agar data lebih valid |
-| Technical limitation | Relay, kipas, dan motor bergantung pada kestabilan power supply | Sistem dapat tidak bekerja optimal jika tegangan tidak stabil | Menggunakan power supply yang sesuai dan stabil |
+   | External validity | Pengujian masih berupa prototype | Hasil belum tentu sama jika diterapkan pada skala besar | Melakukan pengembangan alat dengan kapasitas lebih besar |
+   | Construct validity | Sensor DHT11 hanya membaca suhu dan kelembapan udara, bukan kadar air gabah secara langsung | Data kelembapan belum sepenuhnya mewakili kadar air gabah | Menambahkan sensor kadar air gabah pada pengembangan berikutnya |
+   | Statistical limitation | Jumlah pengujian masih terbatas | Kesimpulan statistik belum terlalu kuat | Menambah jumlah percobaan agar data lebih valid |
+   | Technical limitation | Relay, kipas, dan motor bergantung pada kestabilan power supply | Sistem dapat tidak bekerja optimal jika tegangan tidak stabil | Menggunakan power supply yang sesuai dan stabil |
 
 6. Failure Analysis (jika H₀ tidak ditolak): Failure analysis dilakukan apabila hasil pengujian tidak sesuai dengan hipotesis awal. Misalnya, sistem otomatis ternyata belum mampu mempercepat proses pengeringan secara signifikan dibandingkan metode manual.
    Penyebab potensial  : Beberapa kemungkinan penyebabnya adalah suhu dari sumber panas tidak stabil, posisi sensor kurang tepat, sirkulasi udara panas belum merata, atau kapasitas kipas belum cukup kuat untuk menyebarkan panas ke seluruh ruang pengering.
